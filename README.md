@@ -17,14 +17,45 @@ git pull後に
 
     $ cd docker-nginx-php
 
-\# イメージを作成
+イメージ作成
 
     $ docker build -t <tag>/nginx-php .
 
-\# 起動
+起動
 
     $ docker run --name <name> -d -p 8081:80 -p 8082:443 -ti <tag>/nginx-php
 
-\# コンテナ内へログイン
+コンテナ内へログイン
 
     $ docker exec -ti <name> bash
+
+### 利用可能なボリューム
+
+以下のボリュームが利用可能
+
+    /var/www/html       # ドキュメントルート
+    /etc/nginx          # nginx各種設定
+    /var/log/nginx      # nginxログ
+    /var/log/php-fpm    # php-fpmログ
+
+### Figでの使用方法
+
+[Figとは？](http://www.fig.sh/ "Dockerとは？")  
+
+    以下はサイト構成サンプル
+
+        web:
+          image: tanaka0323/nginx-php
+          ports: 
+            - "8081:80"
+            - "8082:443"
+          volumes_from:
+            - storage
+
+        storage:
+          image: sitedata
+          volumes:
+            - /var/www/html
+            - /var/log/nginx
+            - /var/log/php-fpm
+
