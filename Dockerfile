@@ -32,8 +32,8 @@ RUN yum clean all
 # Adding the configuration file of the nginx
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD default.conf /etc/nginx/conf.d/default.conf
-ADD cert.crt /etc/nginx/cert.crt
-ADD cert.key /etc/nginx/cert.key
+ADD cert.crt /etc/nginx/certs/cert.crt
+ADD cert.key /etc/nginx/certs/cert.key
 
 # Adding the default file
 ADD index.php /var/www/html/index.php
