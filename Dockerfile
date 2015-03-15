@@ -42,6 +42,10 @@ RUN chown -R nginx:nginx /var/www/
 # Adding the configuration file of the Supervisor
 ADD supervisord.conf /etc/
 
+# Configure php-fpm.conf
+RUN sed -i -e "s/;events.mechanism = epoll/events.mechanism = epoll/g" /etc/php-fpm.conf
+RUN sed -i -e "s/error_log = \/var\/log\/php-fpm\/error.log/error_log = \/var\/log\/php-fpm.log/g" /etc/php-fpm.conf
+
 # Configure www.conf
 RUN sed -i -e "s/user = apache/user = nginx/g" /etc/php-fpm.d/www.conf
 RUN sed -i -e "s/group = apache/group = nginx/g" /etc/php-fpm.d/www.conf
@@ -53,9 +57,10 @@ RUN sed -i -e "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm\/php-fpm.s
 # Configure php.ini
 RUN sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 20M/g" /etc/php.ini
 RUN sed -i "s/post_max_size = 8M/post_max_size = 10M/g" /etc/php.ini
+RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php.ini
 
 # Define mountable directories.
-VOLUME ["/etc/nginx", "/var/log/nginx", "/var/www/html"]
+VOLUME ["/etc/nginx", "/var/log", "/var/www/html"]
 
 # Set the port to 80 443
 EXPOSE 80 443
