@@ -1,10 +1,12 @@
 # docker-nginx-php
 
+### Base Docker Image
+
+[tanaka0323/centosjp](https://bitbucket.org/tanaka0323/docker-centosjp "tanaka0323/centosjp")
+
 ### 説明
 
-BaseImage: [docker-centosjp](https://bitbucket.org/tanaka0323/docker-centosjp "docker-centosjp")
-
-docker-centosjpへNginxとPHP5を追加したDockerコンテナイメージです。
+tanaka0323/centosjpへNginxとPHP5を追加したDockerコンテナイメージです。
 
 [Dockerとは？](https://docs.docker.com/ "Dockerとは？")  
 [Docker Command Reference](https://docs.docker.com/reference/commandline/cli/ "Docker Command Reference")

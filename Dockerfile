@@ -1,8 +1,3 @@
-######################################################################
-# Dockerfile to build Nginx+PHP
-# Author: tanaka@infocorpus.com
-######################################################################
-
 # Set the base image
 FROM tanaka0323/centosjp:latest
 
@@ -22,9 +17,7 @@ RUN rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 RUN rpm --rebuilddb
 
 # Installing tools
-RUN yum install -y --enablerepo=remi,remi-php56 wget nginx php-fpm php-mbstring php-mysql php-gd python-setuptools
-RUN easy_install pip
-RUN pip install supervisor
+RUN yum install -y --enablerepo=remi,remi-php56 wget nginx php-fpm php-mbstring php-mysql php-gd supervisor
 
 # Clean up
 RUN yum clean all
