@@ -9,7 +9,6 @@ ADD nginx.repo /etc/yum.repos.d/nginx.repo
 
 # Yum update
 RUN yum -y update
-RUN yum -y upgrade
 
 # Remi Dependency on CentOS 7 and Red Hat (RHEL) 7 ##
 RUN rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
