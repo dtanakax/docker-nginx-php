@@ -41,7 +41,7 @@ git pull後に
 
 [Figとは？](http://www.fig.sh/ "Fidとは？")  
 
-    以下はサイト構成サンプル
+以下はサイト構成サンプル
 
         web:
           image: tanaka0323/nginx-php
