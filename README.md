@@ -35,12 +35,11 @@ git pull後に
 
     /var/www/html       # ドキュメントルート
     /etc/nginx          # nginx各種設定
-    /var/log/nginx      # nginxログ
-    /var/log/php-fpm    # php-fpmログ
+    /var/log            # 各種ログ
 
 ### Figでの使用方法
 
-[Figとは？](http://www.fig.sh/ "Dockerとは？")  
+[Figとは？](http://www.fig.sh/ "Fidとは？")  
 
     以下はサイト構成サンプル
 
@@ -51,11 +50,16 @@ git pull後に
             - "8082:443"
           volumes_from:
             - storage
+            - log
 
         storage:
           image: sitedata
           volumes:
             - /var/www/html
-            - /var/log/nginx
-            - /var/log/php-fpm
+            - /etc/nginx
 
+        log:
+          image: tanaka0323/syslog
+          volumes:
+            - /dev
+            - /var/log
