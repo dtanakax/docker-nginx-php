@@ -43,23 +43,24 @@ git pull後に
 
 以下はサイト構成サンプル
 
-        web:
-          image: tanaka0323/nginx-php
-          ports: 
-            - "8081:80"
-            - "8082:443"
-          volumes_from:
-            - storage
-            - log
+    web:
+      image: tanaka0323/nginx-php
+      ports: 
+        - "8081:80"
+        - "8082:443"
+      volumes_from:
+        - storage
+        - log
 
-        storage:
-          image: sitedata
-          volumes:
-            - /var/www/html
-            - /etc/nginx
+    storage:
+      image: sitedata
+      volumes:
+        - /var/www/html
+        - /etc/nginx
 
-        log:
-          image: tanaka0323/syslog
-          volumes:
-            - /dev
-            - /var/log
+    log:
+      image: tanaka0323/syslog
+      volumes:
+        - /dev
+        - /var/log
+
