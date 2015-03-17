@@ -35,6 +35,7 @@ git pull後に
 
     /var/www/html       # ドキュメントルート
     /etc/nginx          # nginx各種設定
+    /dev                # デバイスファイル
     /var/log            # 各種ログ
 
 ### Figでの使用方法
@@ -61,6 +62,5 @@ git pull後に
     log:
       image: tanaka0323/syslog
       volumes:
-        - /dev
         - /var/log
 
