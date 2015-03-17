@@ -1,3 +1,5 @@
+![nginx 1.6.2](https://img.shields.io/badge/nginx-1.6.2-brightgreen.svg) ![php 5.6.6](https://img.shields.io/badge/php-5.6.6-brightgreen.svg) ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+
 # docker-nginx-php
 
 ### Base Docker Image
@@ -63,4 +65,8 @@ git pull後に
       image: tanaka0323/syslog
       volumes:
         - /var/log
+
+### License
+
+MIT
 
