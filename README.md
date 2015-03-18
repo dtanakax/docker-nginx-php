@@ -52,17 +52,17 @@ git pull後に
         - "8081:80"
         - "8082:443"
       volumes_from:
-        - storage
+        - html
         - log
 
-    storage:
+    html:
       image: sitedata
       volumes:
         - /var/www/html
         - /etc/nginx
 
     log:
-      image: tanaka0323/syslog
+      image: tanaka0323/storage
       volumes:
         - /var/log
 
