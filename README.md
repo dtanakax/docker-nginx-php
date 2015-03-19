@@ -44,28 +44,7 @@ git pull後に
 
 [Figとは？](http://www.fig.sh/ "Fidとは？")  
 
-以下はサイト構成サンプル
-
-    web:
-      image: tanaka0323/nginx-php
-      ports: 
-        - "8081:80"
-        - "8082:443"
-      volumes_from:
-        - html
-        - log
-
-    html:
-      image: sitedata
-      volumes:
-        - /var/www/html
-        - /etc/nginx
-
-    log:
-      image: tanaka0323/syslog
-      volumes:
-        - /var/log/nginx
-        - /var/log/php-fpm
+[設定ファイル記述例](https://bitbucket.org/tanaka0323/fig-examples "設定ファイル記述例")
 
 ### License
 
