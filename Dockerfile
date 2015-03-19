@@ -16,7 +16,7 @@ RUN rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 RUN rpm --rebuilddb
 
 # Installing tools
-RUN yum install -y --enablerepo=remi,remi-php56 wget rsyslog nginx php-fpm php-mbstring php-mysql php-gd supervisor
+RUN yum install -y --enablerepo=remi,remi-php56 wget nginx php-fpm php-mbstring php-mcrypt php-mysql php-gd supervisor
 
 # Clean up
 RUN yum clean all
@@ -51,7 +51,7 @@ RUN sed -i "s/post_max_size = 8M/post_max_size = 10M/g" /etc/php.ini
 RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php.ini
 
 # Define mountable directories.
-VOLUME ["/var/www/html", "/etc/nginx", "/dev", "/var/log"]
+VOLUME ["/var/www/html", "/etc/nginx", "/var/log/nginx", "/var/log/php-fpm"]
 
 # Set the port to 80 443
 EXPOSE 80 443

@@ -37,8 +37,8 @@ git pull後に
 
     /var/www/html       # ドキュメントルート
     /etc/nginx          # nginx各種設定
-    /dev                # デバイスファイル
-    /var/log            # 各種ログ
+    /var/log/nginx      # nginx種ログ
+    /var/log/php-fpm    # php-fpm各種ログ
 
 ### Figでの使用方法
 
@@ -62,9 +62,10 @@ git pull後に
         - /etc/nginx
 
     log:
-      image: tanaka0323/storage
+      image: tanaka0323/syslog
       volumes:
-        - /var/log
+        - /var/log/nginx
+        - /var/log/php-fpm
 
 ### License
 
