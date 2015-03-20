@@ -4,7 +4,7 @@
 
 ### Base Docker Image
 
-[tanaka0323/centosjp](https://bitbucket.org/tanaka0323/docker-centosjp "tanaka0323/centosjp")
+[tanaka0323/debianjp](https://bitbucket.org/tanaka0323/docker-debianjp "tanaka0323/debianjp")
 
 ### 説明
 
