@@ -1,4 +1,4 @@
-![nginx 1.6.2](https://img.shields.io/badge/nginx-1.6.2-brightgreen.svg) ![php 5.6.6](https://img.shields.io/badge/php-5.6.6-brightgreen.svg) ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+![nginx 1.7.10](https://img.shields.io/badge/nginx-1.7.10-brightgreen.svg) ![php 5.6.6](https://img.shields.io/badge/php-5.6.6-brightgreen.svg) ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
 # docker-nginx-php
 
