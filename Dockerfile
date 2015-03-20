@@ -22,10 +22,12 @@ RUN yum install -y --enablerepo=remi,remi-php56 wget nginx php-fpm php-mbstring 
 RUN yum clean all
 
 # Adding the configuration file of the nginx
-ADD nginx.conf /etc/nginx/nginx.conf
-ADD default.conf /etc/nginx/conf.d/default.conf
-ADD cert.crt /etc/nginx/certs/cert.crt
-ADD cert.key /etc/nginx/certs/cert.key
+COPY start.sh /start.sh
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
+COPY cert.crt /etc/nginx/certs/cert.crt
+COPY cert.key /etc/nginx/certs/cert.key
+RUN chmod 755 /start.sh
 
 # Adding the default file
 ADD index.php /var/www/html/index.php
@@ -51,10 +53,10 @@ RUN sed -i "s/post_max_size = 8M/post_max_size = 10M/g" /etc/php.ini
 RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php.ini
 
 # Define mountable directories.
-VOLUME ["/var/www/html", "/etc/nginx", "/var/log/nginx", "/var/log/php-fpm"]
+VOLUME ["/var/www/html", "/etc/nginx/certs", "/var/log/nginx", "/var/log/php-fpm"]
 
 # Set the port to 80 443
 EXPOSE 80 443
 
 # Executing sh
-CMD ["supervisord", "-n"]
+CMD ["/bin/bash", "/start.sh"]
