@@ -4,8 +4,9 @@ FROM tanaka0323/debianjp:latest
 # File Author / Maintainer
 MAINTAINER tanaka@infocorpus.com
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends \
     ca-certificates wget
 
@@ -15,7 +16,6 @@ RUN wget http://nginx.org/keys/nginx_signing.key -O- | apt-key add - && \
     echo "deb http://packages.dotdeb.org wheezy-php56 all" >> /etc/apt/sources.list.d/dotdeb.list
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive \
     apt-get install -y procps nginx php5-fpm php5-mcrypt php5-mysql php5-gd supervisor && \
     rm -rf /var/lib/apt/lists/*
 
