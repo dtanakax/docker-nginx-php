@@ -8,7 +8,7 @@
 
 ### 説明
 
-tanaka0323/centosjpへNginxとPHP5を追加したDockerコンテナイメージです。
+Nginx+PHP5 Dockerコンテナイメージです。
 
 [Dockerとは？](https://docs.docker.com/ "Dockerとは？")  
 [Docker Command Reference](https://docs.docker.com/reference/commandline/cli/ "Docker Command Reference")
