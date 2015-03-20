@@ -25,7 +25,7 @@ git pull後に
 
 起動
 
-    $ docker run --name <name> -d -p 8081:80 -p 8082:443 -ti <tag>/nginx-php
+    $ docker run --name <name> -d -p 8081:80 -p 8082:443 -e VIRTUAL_HOST=<hostname> -ti <tag>/nginx-php
 
 コンテナ内へログイン
 

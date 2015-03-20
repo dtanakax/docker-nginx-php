@@ -1,25 +1,25 @@
 # Set the base image
-FROM tanaka0323/centosjp:latest
+FROM tanaka0323/debianjp:latest
 
 # File Author / Maintainer
 MAINTAINER tanaka@infocorpus.com
 
-# Add the ngix and PHP dependent repository
-ADD nginx.repo /etc/yum.repos.d/nginx.repo
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y --no-install-recommends \
+    ca-certificates wget
 
-# Yum update
-RUN yum -y update
+RUN wget http://nginx.org/keys/nginx_signing.key -O- | apt-key add - && \
+    echo "deb http://nginx.org/packages/mainline/debian/ wheezy nginx" >> /etc/apt/sources.list && \
+    wget http://www.dotdeb.org/dotdeb.gpg -O- | apt-key add - && \
+    echo "deb http://packages.dotdeb.org wheezy-php56 all" >> /etc/apt/sources.list.d/dotdeb.list
 
-# Remi Dependency on CentOS 7 and Red Hat (RHEL) 7 ##
-RUN rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-RUN rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-RUN rpm --rebuilddb
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y procps nginx php5-fpm php5-mcrypt php5-mysql php5-gd supervisor && \
+    rm -rf /var/lib/apt/lists/*
 
-# Installing tools
-RUN yum install -y --enablerepo=remi,remi-php56 wget nginx php-fpm php-mbstring php-mcrypt php-mysql php-gd supervisor
-
-# Clean up
-RUN yum clean all
+RUN apt-get clean
 
 # Adding the configuration file of the nginx
 COPY start.sh /start.sh
@@ -37,23 +37,23 @@ RUN chown -R nginx:nginx /var/www/
 ADD supervisord.conf /etc/
 
 # Configure php-fpm.conf
-RUN sed -i -e "s/;events.mechanism = epoll/events.mechanism = epoll/g" /etc/php-fpm.conf
+RUN sed -i -e "s/;events.mechanism = epoll/events.mechanism = epoll/g" /etc/php5/fpm/php-fpm.conf
 
 # Configure www.conf
-RUN sed -i -e "s/user = apache/user = nginx/g" /etc/php-fpm.d/www.conf
-RUN sed -i -e "s/group = apache/group = nginx/g" /etc/php-fpm.d/www.conf
-RUN sed -i -e "s/;listen.owner = nobody/listen.owner = nginx/g" /etc/php-fpm.d/www.conf
-RUN sed -i -e "s/;listen.group = nobody/listen.group = nginx/g" /etc/php-fpm.d/www.conf
-RUN sed -i -e "s/;listen.mode = 0660/listen.mode = 0660/g" /etc/php-fpm.d/www.conf
-RUN sed -i -e "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm\/php-fpm.sock/g" /etc/php-fpm.d/www.conf
+RUN sed -i -e "s/user = www-data/user = nginx/g" /etc/php5/fpm/pool.d/www.conf
+RUN sed -i -e "s/group = www-data/group = nginx/g" /etc/php5/fpm/pool.d/www.conf
+RUN sed -i -e "s/listen.owner = nobody/listen.owner = nginx/g" /etc/php5/fpm/pool.d/www.conf
+RUN sed -i -e "s/listen.group = nobody/listen.group = nginx/g" /etc/php5/fpm/pool.d/www.conf
+RUN sed -i -e "s/;listen.mode = 0660/listen.mode = 0660/g" /etc/php5/fpm/pool.d/www.conf
+#RUN sed -i -e "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm\/php-fpm.sock/g" /etc/php5/fpm/pool.d/www.conf
 
 # Configure php.ini
-RUN sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 20M/g" /etc/php.ini
-RUN sed -i "s/post_max_size = 8M/post_max_size = 10M/g" /etc/php.ini
-RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php.ini
+RUN sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 20M/g" /etc/php5/fpm/php.ini
+RUN sed -i "s/post_max_size = 8M/post_max_size = 10M/g" /etc/php5/fpm/php.ini
+RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php5/fpm/php.ini
 
 # Define mountable directories.
-VOLUME ["/var/www/html", "/etc/nginx/certs", "/var/log/nginx", "/var/log/php-fpm"]
+VOLUME ["/var/www/html", "/etc/nginx/certs", "/var/log/nginx", "/var/log/php5-fpm"]
 
 # Set the port to 80 443
 EXPOSE 80 443
