@@ -35,10 +35,8 @@ git pull後に
 
 以下のボリュームが利用可能
 
-    /var/www/html       # ドキュメントルート
     /etc/nginx          # nginx各種設定
-    /var/log/nginx      # nginx種ログ
-    /var/log/php-fpm    # php-fpm各種ログ
+    /etc/nginx/certs    # SSL鍵
 
 ### Figでの使用方法
 
