@@ -35,8 +35,9 @@ git pull後に
 
 以下のボリュームが利用可能
 
-    /etc/nginx          # nginx各種設定
-    /etc/nginx/certs    # SSL鍵
+    /etc/nginx          # Nginx各種設定
+    /etc/nginx/certs    # SSL認証鍵
+    /var/cache/nginx    # Nginxキャッシュ
 
 ### Figでの使用方法
 

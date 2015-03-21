@@ -25,8 +25,8 @@ RUN apt-get clean
 COPY start.sh /start.sh
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
-COPY cert.crt /etc/nginx/certs/cert.crt
-COPY cert.key /etc/nginx/certs/cert.key
+COPY default.crt /etc/nginx/certs/default.crt
+COPY default.key /etc/nginx/certs/default.key
 RUN chmod 755 /start.sh
 
 # Adding the default file
@@ -51,11 +51,15 @@ RUN sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 20M/g" /etc/php5/fp
 RUN sed -i "s/post_max_size = 8M/post_max_size = 10M/g" /etc/php5/fpm/php.ini
 RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php5/fpm/php.ini
 
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log
+RUN ln -sf /dev/stderr /var/log/nginx/error.log
+
 # Define mountable directories.
-VOLUME ["/etc/nginx", "/etc/nginx/certs"]
+VOLUME ["/etc/nginx", "/etc/nginx/certs", "/var/cache/nginx"]
 
 # Set the port to 80 443
 EXPOSE 80 443
 
 # Executing sh
-CMD ["/bin/bash", "/start.sh"]
+CMD ["supervisord", "-n"]
