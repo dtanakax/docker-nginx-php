@@ -53,7 +53,7 @@ RUN sed -i "s/post_max_size = 8M/post_max_size = 10M/g" /etc/php5/fpm/php.ini
 RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php5/fpm/php.ini
 
 # Define mountable directories.
-VOLUME ["/var/www/html", "/etc/nginx/certs", "/var/log/nginx", "/var/log/php5-fpm"]
+VOLUME ["/etc/nginx/", "/etc/nginx/certs"]
 
 # Set the port to 80 443
 EXPOSE 80 443
