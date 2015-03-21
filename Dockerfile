@@ -22,12 +22,10 @@ RUN apt-get update && \
 RUN apt-get clean
 
 # Adding the configuration file of the nginx
-COPY start.sh /start.sh
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY default.crt /etc/nginx/certs/default.crt
 COPY default.key /etc/nginx/certs/default.key
-RUN chmod 755 /start.sh
 
 # Adding the default file
 ADD index.php /var/www/html/index.php
