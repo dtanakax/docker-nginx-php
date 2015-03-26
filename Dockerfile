@@ -5,6 +5,7 @@ FROM tanaka0323/debianjp:latest
 MAINTAINER Daisuke Tanaka, tanaka@infocorpus.com
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV UPLOAD_MAX_SIZE 50M
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -45,8 +46,8 @@ RUN sed -i -e "s/listen.group = nobody/listen.group = nginx/g" /etc/php5/fpm/poo
 RUN sed -i -e "s/;listen.mode = 0660/listen.mode = 0660/g" /etc/php5/fpm/pool.d/www.conf
 
 # Configure php.ini
-RUN sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 20M/g" /etc/php5/fpm/php.ini
-RUN sed -i "s/post_max_size = 8M/post_max_size = 10M/g" /etc/php5/fpm/php.ini
+RUN sed -i "s/upload_max_filesize = 2M/upload_max_filesize = $UPLOAD_MAX_SIZE/g" /etc/php5/fpm/php.ini
+RUN sed -i "s/post_max_size = 8M/post_max_size = $UPLOAD_MAX_SIZE/g" /etc/php5/fpm/php.ini
 RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php5/fpm/php.ini
 
 # forward request and error logs to docker log collector

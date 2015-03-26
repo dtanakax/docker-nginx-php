@@ -39,6 +39,10 @@ git pull後に
     /etc/nginx/certs    # SSL認証鍵
     /var/cache/nginx    # Nginxキャッシュ
 
+### 環境変数
+
+- <code>UPLOAD_MAX_SIZE</code>アップロード最大ファイルサイズ
+
 ### Figでの使用方法
 
 [Figとは？](http://www.fig.sh/ "Fidとは？")  
