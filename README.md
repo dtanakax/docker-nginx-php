@@ -43,11 +43,11 @@ git pull後に
 
 - <code>UPLOAD_MAX_SIZE</code>アップロード最大ファイルサイズ
 
-### Figでの使用方法
+### Docker Composeでの使用方法
 
-[Figとは？](http://www.fig.sh/)  
+[Docker Composeとは](https://docs.docker.com/compose/)  
 
-[設定ファイル記述例](https://bitbucket.org/tanaka0323/fig-examples)
+[設定ファイル記述例](https://bitbucket.org/tanaka0323/compose-examples)
 
 ### License
 
