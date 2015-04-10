@@ -25,8 +25,6 @@ RUN apt-get clean
 # Adding the configuration file of the nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
-COPY default.crt /etc/nginx/certs/default.crt
-COPY default.key /etc/nginx/certs/default.key
 
 # Adding the default file
 ADD index.php /var/www/html/index.php
@@ -55,10 +53,10 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Define mountable directories.
-VOLUME ["/etc/nginx", "/etc/nginx/certs", "/var/cache/nginx"]
+VOLUME ["/etc/nginx", "/var/cache/nginx"]
 
-# Set the port to 80 443
-EXPOSE 80 443
+# Set the port to 80
+EXPOSE 80
 
 # Executing sh
 CMD ["supervisord", "-n"]

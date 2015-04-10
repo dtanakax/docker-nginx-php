@@ -25,18 +25,21 @@ git pull後に
 
 起動
 
-    $ docker run --name <name> -d -p 8081:80 -p 8082:443 -e VIRTUAL_HOST=<hostname> -ti tanaka0323/nginx-php
+    $ docker run --name <name> -d -p 8081:80 -e VIRTUAL_HOST=<hostname> -ti tanaka0323/nginx-php
 
 コンテナ内へログイン
 
     $ docker exec -ti <name> bash
+
+### SSL or Basic認証を有効にするには
+
+[nginx-proxyのREADME](https://bitbucket.org/tanaka0323/docker-nginx-proxy)を参考にして下さい。
 
 ### 利用可能なボリューム
 
 以下のボリュームが利用可能
 
     /etc/nginx          # Nginx各種設定
-    /etc/nginx/certs    # SSL認証鍵
     /var/cache/nginx    # Nginxキャッシュ
 
 ### 環境変数
