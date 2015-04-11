@@ -1,19 +1,23 @@
 ![nginx 1.7.11](https://img.shields.io/badge/nginx-1.7.11-brightgreen.svg) ![php 5.6.7](https://img.shields.io/badge/php-5.6.7-brightgreen.svg) ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
-# docker-nginx-php
+docker-nginx-php
+=====================
 
-### Base Docker Image
+Base Docker Image
+---------------------
 
 [tanaka0323/debianjp](https://bitbucket.org/tanaka0323/docker-debianjp)
 
-### 説明
+説明
+---------------------
 
 Nginx+PHP5 Dockerコンテナイメージです。
 
 [Dockerとは？](https://docs.docker.com/)  
 [Docker Command Reference](https://docs.docker.com/reference/commandline/cli/)
 
-### 使用方法
+使用方法
+---------------------
 
 git pull後に
 
@@ -31,28 +35,33 @@ git pull後に
 
     $ docker exec -ti <name> bash
 
-### SSL or Basic認証を有効にするには
+SSL or Basic認証を有効にするには
+---------------------
 
 [nginx-proxyのREADME](https://bitbucket.org/tanaka0323/docker-nginx-proxy)を参考にして下さい。
 
-### 利用可能なボリューム
+利用可能なボリューム
+---------------------
 
 以下のボリュームが利用可能
 
     /etc/nginx          # Nginx各種設定
     /var/cache/nginx    # Nginxキャッシュ
 
-### 環境変数
+環境変数
+---------------------
 
-- <code>UPLOAD_MAX_SIZE</code>アップロード最大ファイルサイズ
+- `UPLOAD_MAX_SIZE`アップロード最大ファイルサイズ
 
-### Docker Composeでの使用方法
+Docker Composeでの使用方法
+---------------------
 
 [Docker Composeとは](https://docs.docker.com/compose/)  
 
 [設定ファイル記述例](https://bitbucket.org/tanaka0323/compose-examples)
 
-### License
+License
+---------------------
 
 The MIT License
 Copyright (c) 2015 Daisuke Tanaka
