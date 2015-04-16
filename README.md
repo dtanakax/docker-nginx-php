@@ -6,7 +6,7 @@ docker-nginx-php
 Base Docker Image
 ---------------------
 
-[tanaka0323/debianjp](https://bitbucket.org/tanaka0323/docker-debianjp)
+[tanaka0323/nginx](https://bitbucket.org/tanaka0323/docker-nginx)
 
 説明
 ---------------------

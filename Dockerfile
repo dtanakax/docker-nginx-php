@@ -1,5 +1,5 @@
 # Set the base image
-FROM tanaka0323/debianjp:latest
+FROM tanaka0323/nginx:latest
 
 # File Author / Maintainer
 MAINTAINER Daisuke Tanaka, tanaka@infocorpus.com
@@ -7,30 +7,21 @@ MAINTAINER Daisuke Tanaka, tanaka@infocorpus.com
 ENV DEBIAN_FRONTEND noninteractive
 ENV UPLOAD_MAX_SIZE 50M
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    ca-certificates wget
-
-RUN wget http://nginx.org/keys/nginx_signing.key -O- | apt-key add - && \
-    echo "deb http://nginx.org/packages/mainline/debian/ wheezy nginx" >> /etc/apt/sources.list && \
-    wget http://www.dotdeb.org/dotdeb.gpg -O- | apt-key add - && \
+RUN wget http://www.dotdeb.org/dotdeb.gpg -O- | apt-key add - && \
     echo "deb http://packages.dotdeb.org wheezy-php56 all" >> /etc/apt/sources.list.d/dotdeb.list
 
 RUN apt-get update && \
-    apt-get install -y procps nginx php5-fpm php5-mcrypt php5-mysql php5-gd supervisor && \
+    apt-get install -y php5-fpm php5-mcrypt php5-mysql php5-gd && \
     rm -rf /var/lib/apt/lists/*
-
-RUN apt-get clean
+RUN apt-get clean all
 
 # Adding the configuration file of the nginx
-COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
 RUN touch /var/log/php5-fpm.log
 RUN chown -R nginx:nginx /var/log/php5-fpm.log
 
 # Adding the default file
 ADD index.php /var/www/html/index.php
-RUN chown -R nginx:nginx /var/www/
 
 # Adding the configuration file of the Supervisor
 ADD supervisord.conf /etc/
@@ -51,15 +42,10 @@ RUN sed -i "s/post_max_size = 8M/post_max_size = $UPLOAD_MAX_SIZE/g" /etc/php5/f
 RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php5/fpm/php.ini
 
 # forward request and error logs to docker log collector
-RUN ln -sf /dev/stdout /var/log/nginx/access.log
-RUN ln -sf /dev/stderr /var/log/nginx/error.log
 RUN ln -sf /dev/stderr /var/log/php5-fpm.log
 
-# Define mountable directories.
-VOLUME ["/etc/nginx", "/var/cache/nginx"]
-
 # Set the port to 80
-EXPOSE 80
+EXPOSE 80 443
 
 # Executing sh
 CMD ["supervisord", "-n"]
