@@ -42,7 +42,7 @@ RUN sed -i "s/post_max_size = 8M/post_max_size = $UPLOAD_MAX_SIZE/g" /etc/php5/f
 RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php5/fpm/php.ini
 
 # forward request and error logs to docker log collector
-RUN ln -sf /dev/stderr /var/log/php5-fpm.log
+RUN ln -sf /dev/stdout /var/log/php5-fpm.log
 
 # Set the port to 80
 EXPOSE 80 443
