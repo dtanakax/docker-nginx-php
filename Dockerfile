@@ -23,8 +23,10 @@ RUN chown -R nginx:nginx /var/log/php5-fpm.log
 # Adding the default file
 ADD index.php /var/www/html/index.php
 
-# Adding the configuration file of the Supervisor
+# Adding the configuration file
 ADD supervisord.conf /etc/
+ADD start.sh /start.sh
+RUN chmod +x /start.sh
 
 # Configure php-fpm.conf
 RUN sed -i -e "s/;events.mechanism = epoll/events.mechanism = epoll/g" /etc/php5/fpm/php-fpm.conf
@@ -43,6 +45,8 @@ RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php5/fpm/ph
 
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/php5-fpm.log
+
+ENTRYPOINT ["./start.sh"]
 
 # Set the port to 80
 EXPOSE 80 443
