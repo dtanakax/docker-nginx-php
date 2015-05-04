@@ -1,5 +1,5 @@
 # Set the base image
-FROM tanaka0323/nginx:latest
+FROM dtanakax/nginx:latest
 
 # File Author / Maintainer
 MAINTAINER Daisuke Tanaka, tanaka@infocorpus.com
@@ -11,7 +11,7 @@ RUN wget http://www.dotdeb.org/dotdeb.gpg -O- | apt-key add - && \
     echo "deb http://packages.dotdeb.org wheezy-php56 all" >> /etc/apt/sources.list.d/dotdeb.list
 
 RUN apt-get update && \
-    apt-get install -y php5-fpm php5-mcrypt php5-mysql php5-gd && \
+    apt-get install -y supervisor php5-fpm php5-mcrypt php5-mysql php5-gd && \
     rm -rf /var/lib/apt/lists/*
 RUN apt-get clean all
 
