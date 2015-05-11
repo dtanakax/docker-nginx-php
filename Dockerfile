@@ -1,5 +1,5 @@
 # Set the base image
-FROM dtanakax/nginx:1.8.0
+FROM dtanakax/nginx:1.9.0
 
 # File Author / Maintainer
 MAINTAINER Daisuke Tanaka, dtanakax@gmail.com
