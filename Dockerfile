@@ -5,7 +5,6 @@ FROM dtanakax/nginx:1.8.0
 MAINTAINER Daisuke Tanaka, dtanakax@gmail.com
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV UPLOAD_MAX_SIZE 50M
 
 RUN wget http://www.dotdeb.org/dotdeb.gpg -O- | apt-key add - && \
     echo "deb http://packages.dotdeb.org wheezy-php56 all" >> /etc/apt/sources.list.d/dotdeb.list
@@ -38,13 +37,11 @@ RUN sed -i -e "s/listen.owner = nobody/listen.owner = nginx/g" /etc/php5/fpm/poo
 RUN sed -i -e "s/listen.group = nobody/listen.group = nginx/g" /etc/php5/fpm/pool.d/www.conf
 RUN sed -i -e "s/;listen.mode = 0660/listen.mode = 0666/g" /etc/php5/fpm/pool.d/www.conf
 
-# Configure php.ini
-RUN sed -i "s/upload_max_filesize = 2M/upload_max_filesize = $UPLOAD_MAX_SIZE/g" /etc/php5/fpm/php.ini
-RUN sed -i "s/post_max_size = 8M/post_max_size = $UPLOAD_MAX_SIZE/g" /etc/php5/fpm/php.ini
-RUN sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php5/fpm/php.ini
-
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/php5-fpm.log
+
+ENV UPLOAD_MAX_SIZE 50M
+ENV DATE_TIMEZONE Asia/Tokyo
 
 ENTRYPOINT ["./start.sh"]
 

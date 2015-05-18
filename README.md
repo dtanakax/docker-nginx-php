@@ -35,7 +35,8 @@ Nginx+PHP5 Dockerコンテナ作成設定
 環境変数
 ---------------------
 
-- `UPLOAD_MAX_SIZE` アップロード最大ファイルサイズ
+- `UPLOAD_MAX_SIZE` アップロード最大ファイルサイズ デフォルト:`50M`
+- `DATE_TIMEZONE`   タイムゾーン デフォルト:`Asia/Tokyo`
 
 License
 ---------------------
